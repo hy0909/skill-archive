@@ -2,284 +2,271 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>스킬 아카이브</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="GitHub 스타와 자주 쓰는 웹 도구를 주제별, 직군별로 모아 둔 스킬 아카이브">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap">
 <style>
-/* 레이아웃: 도서관 색인 카드. 왼쪽은 분류 색인, 오른쪽은 청구기호가 붙은 카드 목록 */
+/* Cal.com DESIGN.md 기준: 흰 바탕, 검정 주 버튼, 연회색 카드(12px), 제목은 Cal Sans 600 + 좁은 자간, 본문은 Inter(한글 Pretendard), 바닥글만 어둡게 */
 :root{
-  --paper:#f3f5f4; --card:#ffffff; --ink:#18201e; --muted:#5d6b67; --line:#d5dcd9;
-  --accent:#1f5f8b; --accent-soft:#e3edf4; --star:#a3620a;
-  --c-sk:#1f5f8b; --c-ds:#3d6b3a; --c-ft:#7a4a8c; --c-gr:#9a4b2e; --c-gd:#a03a6a;
-  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
-  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --primary:#111111; --primary-active:#242424; --on-primary:#ffffff;
+  --ink:#111111; --body:#374151; --muted:#6b7280; --muted-soft:#898989;
+  --hairline:#e5e7eb; --hairline-soft:#f3f4f6;
+  --canvas:#ffffff; --surface-soft:#f8f9fa; --surface-card:#f5f5f5; --surface-strong:#e5e7eb;
+  --surface-dark:#101010; --surface-dark-el:#1a1a1a; --on-dark:#ffffff; --on-dark-soft:#a1a1aa;
+  --link:#3b82f6; --star:#fb923c;
+  --b-sk:#3b82f6; --b-ds:#34d399; --b-ft:#8b5cf6; --b-gr:#fb923c; --b-gd:#ec4899;
+  --shadow:0 1px 2px rgba(17,17,17,.06),0 1px 1px rgba(17,17,17,.04);
+  --f-display:"Cal Sans","Pretendard Variable",Pretendard,Inter,system-ui,sans-serif;
+  --f-body:Inter,"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --f-code:"JetBrains Mono",ui-monospace,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --paper:#121615; --card:#1a201e; --ink:#e6ecea; --muted:#97a6a1; --line:#2d3633;
-  --accent:#7fb6dc; --accent-soft:#1d2b35; --star:#e0a54a;
-  --c-sk:#7fb6dc; --c-ds:#93c48d; --c-ft:#c9a2d8; --c-gr:#e09a7c; --c-gd:#e68fb7; color-scheme:dark}}
+  --primary:#ffffff; --primary-active:#e5e7eb; --on-primary:#111111;
+  --ink:#f5f5f5; --body:#d1d5db; --muted:#9ca3af; --muted-soft:#8b8b8b;
+  --hairline:#262626; --hairline-soft:#1c1c1c;
+  --canvas:#0b0b0b; --surface-soft:#151515; --surface-card:#161616; --surface-strong:#262626;
+  --surface-dark:#000000; --surface-dark-el:#141414; --link:#60a5fa;
+  --shadow:0 1px 2px rgba(0,0,0,.5); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --paper:#121615; --card:#1a201e; --ink:#e6ecea; --muted:#97a6a1; --line:#2d3633;
-  --accent:#7fb6dc; --accent-soft:#1d2b35; --star:#e0a54a;
-  --c-sk:#7fb6dc; --c-ds:#93c48d; --c-ft:#c9a2d8; --c-gr:#e09a7c; --c-gd:#e68fb7; color-scheme:dark}
+  --primary:#ffffff; --primary-active:#e5e7eb; --on-primary:#111111;
+  --ink:#f5f5f5; --body:#d1d5db; --muted:#9ca3af; --muted-soft:#8b8b8b;
+  --hairline:#262626; --hairline-soft:#1c1c1c;
+  --canvas:#0b0b0b; --surface-soft:#151515; --surface-card:#161616; --surface-strong:#262626;
+  --surface-dark:#000000; --surface-dark-el:#141414; --link:#60a5fa;
+  --shadow:0 1px 2px rgba(0,0,0,.5); color-scheme:dark}
 *{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.wrap{max-width:1120px;margin:0 auto;padding-block:40px 64px}
-header{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:20px}
-.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
-h1{margin:4px 0 0;font-size:clamp(28px,5vw,40px);font-weight:700;letter-spacing:-.02em;text-wrap:balance}
-.meta{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:right}
-.meta a{color:var(--accent)}
-.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:24px 0}
-.tabs{display:inline-flex;border:1px solid var(--line);border-radius:8px;padding:3px;background:var(--card)}
-.tabs button{font:inherit;font-weight:600;border:0;background:none;color:var(--muted);padding:8px 16px;border-radius:6px;cursor:pointer}
-.tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
-#q{flex:1 1 220px;min-width:0;font:inherit;padding:10px 14px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
-button:focus-visible,#q:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:32px}
-@media (max-width:760px){.layout{grid-template-columns:1fr;gap:16px}}
-nav.index{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start}
-@media (max-width:760px){nav.index{position:static}}
-.index h2{font-size:12px;font-family:var(--f-mono);letter-spacing:.08em;color:var(--muted);margin:0 0 8px;font-weight:500}
-.index ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
-@media (max-width:760px){.index ul{flex-direction:row;flex-wrap:wrap;gap:6px}}
-.index a{display:flex;justify-content:space-between;gap:12px;padding:7px 10px;border-radius:6px;color:var(--ink);text-decoration:none;font-weight:500}
-@media (max-width:760px){.index a{border:1px solid var(--line);background:var(--card)}}
-.index a:hover{background:var(--accent-soft)}
-.index .n{font-family:var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums}
-.index .note{font-size:13px;color:var(--muted);margin-top:16px;line-height:1.55}
-@media (max-width:760px){.index .note{display:none}}
-section.group{margin-bottom:40px;scroll-margin-top:16px}
-.ghead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:16px}
-.ghead h3{margin:0;font-size:20px;letter-spacing:-.01em}
-.ghead .code{font-family:var(--f-mono);font-size:12px;padding:2px 8px;border-radius:4px;color:var(--card);background:var(--gc)}
-.ghead p{margin:0;color:var(--muted);font-size:14px;flex-basis:100%}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px 18px 14px;display:flex;flex-direction:column;gap:10px;min-width:0}
-.card .top{display:flex;justify-content:space-between;gap:8px;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
-.card .call{color:var(--gc);font-weight:500}
-.card .stars{color:var(--star);font-variant-numeric:tabular-nums}
-.card h4{margin:0;font-size:17px;line-height:1.35;overflow-wrap:anywhere}
-.card h4 a{color:var(--ink);text-decoration:none}
-.card h4 a:hover{color:var(--accent);text-decoration:underline}
-.card .owner{font-family:var(--f-mono);font-size:12px;color:var(--muted);overflow-wrap:anywhere}
-.card .desc{margin:0;font-size:14px}
-.card .why{margin:0;font-size:13.5px;padding:8px 10px;border-radius:6px;background:var(--accent-soft)}
-.card .why b{font-weight:600}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:4px}
-.chip{font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
-.chip.role{color:var(--ink)}
-.chip.lang{font-family:var(--f-mono)}
-.site-badge{color:var(--accent);font-weight:500}
-.links{display:flex;gap:14px;font-size:13px;font-weight:500}
-.links a{color:var(--accent);text-decoration:none}
-.links a:hover{text-decoration:underline}
-.src{display:inline-flex;gap:6px;flex-wrap:wrap}
-.src button{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--card);color:var(--muted);padding:6px 12px;border-radius:999px;cursor:pointer}
-.src button[aria-pressed="true"]{border-color:var(--ink);color:var(--ink);font-weight:600}
-.empty{padding:40px 0;color:var(--muted);text-align:center}
-footer{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
-@media (prefers-reduced-motion:no-preference){.card{transition:border-color .15s}.card:hover{border-color:var(--muted)}}
+html,body{margin:0}
+body{background:var(--canvas);color:var(--body);font-family:var(--f-body);font-size:16px;line-height:1.5;word-break:keep-all;-webkit-font-smoothing:antialiased}
+.inner{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;color:var(--ink);margin:0;text-wrap:balance}
+
+/* 버튼 */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 20px;border-radius:8px;font:600 14px/1 var(--f-body);text-decoration:none;border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:background .15s}
+.btn-primary{background:var(--primary);color:var(--on-primary)}
+.btn-primary:hover{background:var(--primary-active)}
+.btn-secondary{background:var(--canvas);color:var(--ink);border-color:var(--hairline)}
+.btn-secondary:hover{background:var(--surface-soft)}
+
+/* 상단 바 64px */
+.topnav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--canvas) 88%,transparent);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--hairline-soft)}
+.topnav .inner{height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.wordmark{font-family:"Cal Sans",var(--f-display);font-size:22px;letter-spacing:-.5px;color:var(--ink);text-decoration:none;white-space:nowrap}
+.pillgroup{display:inline-flex;background:var(--surface-soft);border:1px solid var(--hairline-soft);border-radius:999px;padding:4px;gap:2px}
+.pillgroup button{font:500 14px/1.4 var(--f-body);border:0;background:transparent;color:var(--muted);padding:6px 16px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.pillgroup button:hover{color:var(--ink)}
+.pillgroup button[aria-selected="true"]{background:var(--canvas);color:var(--ink);box-shadow:var(--shadow)}
+@media (max-width:640px){.topnav .btn{display:none}}
+
+/* 첫 화면 */
+.hero .inner{padding-block:96px 72px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px;align-items:center}
+@media (max-width:900px){.hero .inner{grid-template-columns:1fr;padding-block:56px 48px;gap:32px}}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface-card);color:var(--ink);font:500 13px/1.4 var(--f-body);border-radius:999px;padding:4px 12px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--c,var(--muted));flex:none}
+.hero h1{font-size:clamp(40px,6vw,64px);line-height:1.08;letter-spacing:-2px;margin:20px 0 20px}
+.hero p{font-size:18px;color:var(--muted);margin:0 0 32px;max-width:32em}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
+
+/* 첫 화면 오른쪽: 실제로 쓰는 검색 패널 */
+.mock{background:var(--surface-card);border-radius:16px;padding:12px}
+.mock-in{background:var(--canvas);border:1px solid var(--hairline);border-radius:12px;padding:20px;box-shadow:var(--shadow)}
+.mock-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.mock-head b{font:600 16px/1.4 var(--f-body);color:var(--ink)}
+.mock-head span{font:500 13px/1.4 var(--f-body);color:var(--muted)}
+.field{display:flex;align-items:center;gap:10px;height:40px;border:1px solid var(--hairline);border-radius:8px;padding:0 14px;background:var(--canvas);color:var(--muted)}
+.field:focus-within{border-color:var(--ink);box-shadow:0 0 0 3px var(--hairline)}
+.field input{flex:1;min-width:0;border:0;background:transparent;font:400 16px/1.5 var(--f-body);color:var(--ink);outline:none}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--surface-soft);border-radius:8px;padding:4px;margin-top:12px}
+.seg button{font:500 14px/1.4 var(--f-body);border:0;background:transparent;color:var(--muted);height:32px;border-radius:6px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--canvas);color:var(--ink);box-shadow:var(--shadow)}
+.quick{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.quick button{font:500 13px/1.4 var(--f-body);border:1px solid var(--hairline);background:var(--canvas);color:var(--body);border-radius:999px;padding:4px 12px;cursor:pointer}
+.quick button:hover{border-color:var(--ink);color:var(--ink)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid var(--hairline-soft)}
+.stats b{display:block;font-family:"Cal Sans",var(--f-display);font-weight:600;font-size:28px;letter-spacing:-.5px;color:var(--ink);line-height:1.2;font-variant-numeric:tabular-nums}
+.stats span{font:500 13px/1.4 var(--f-body);color:var(--muted)}
+
+/* 분류 탭 줄 */
+.cats{position:sticky;top:64px;z-index:5;background:var(--canvas);border-bottom:1px solid var(--hairline-soft)}
+.cats .inner{display:flex;gap:4px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+.cats .inner::-webkit-scrollbar{display:none}
+.cattab{display:inline-flex;align-items:center;gap:8px;font:500 14px/1.4 var(--f-body);color:var(--muted);padding:8px 14px;border-radius:8px;text-decoration:none;white-space:nowrap}
+.cattab:hover{color:var(--ink);background:var(--surface-soft)}
+.cattab.on{color:var(--ink);background:var(--surface-card)}
+.cattab .n{font-family:var(--f-code);font-size:12px;color:var(--muted-soft)}
+
+/* 목록 */
+main .inner{padding-block:48px 24px}
+section.group{padding-bottom:72px;scroll-margin-top:136px}
+.ghead{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:8px 24px;margin-bottom:24px}
+.ghead h2{font-size:clamp(28px,3.4vw,36px);letter-spacing:-1px;line-height:1.15;display:flex;align-items:center;gap:12px}
+.ghead h2 .dot{width:10px;height:10px}
+.ghead p{margin:0;color:var(--muted);font-size:16px;max-width:36em}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface-card);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.card .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.card .top .badge{background:var(--canvas)}
+.stars{font:500 13px/1.4 var(--f-body);color:var(--ink);font-variant-numeric:tabular-nums;display:inline-flex;align-items:center;gap:4px}
+.stars i{font-style:normal;color:var(--star)}
+.card h3{font-family:var(--f-body);font-size:18px;font-weight:600;letter-spacing:0;line-height:1.4;overflow-wrap:anywhere}
+.card .owner{font:400 13px/1.4 var(--f-code);color:var(--muted);margin-top:-10px;overflow-wrap:anywhere}
+.card .desc{margin:0;font-size:14px;line-height:1.6;color:var(--body)}
+.fragment{background:var(--canvas);border:1px solid var(--hairline);border-radius:8px;padding:12px 14px;font-size:14px;line-height:1.5;color:var(--body)}
+.fragment .who{display:flex;align-items:center;gap:8px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:4px}
+.avatars{display:flex}
+.av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:600 12px/1 var(--f-body);color:var(--ink);background:var(--canvas);border:2px solid var(--surface-card);margin-left:-6px}
+.av:first-child{margin-left:0}
+.links{display:flex;gap:8px}
+.links .btn{height:34px;padding:0 14px;font-size:13px}
+.empty{padding:64px 0;text-align:center;color:var(--muted)}
+
+/* 아래 안내 띠 */
+.cta .inner{padding-block:0 96px}
+.cta-band{background:var(--surface-card);border-radius:12px;padding:48px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px}
+@media (max-width:640px){.cta-band{padding:32px 24px}}
+.cta-band h2{font-size:28px;letter-spacing:-.5px;line-height:1.2}
+.cta-band p{margin:8px 0 0;color:var(--muted)}
+
+footer{background:var(--surface-dark);color:var(--on-dark-soft);font-size:14px}
+footer .inner{padding-block:64px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px}
+footer .wordmark{color:var(--on-dark)}
+footer a{color:var(--on-dark);text-decoration:none}
+footer a:hover{text-decoration:underline}
+footer .cols{display:flex;gap:48px;flex-wrap:wrap}
+footer .cols div{display:flex;flex-direction:column;gap:8px}
+footer .cols b{color:var(--on-dark);font-weight:600;margin-bottom:4px}
+footer small{display:block;margin-top:12px;color:var(--muted-soft)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
+<nav class="topnav"><div class="inner">
+  <a class="wordmark" href="#">Skill Archive</a>
+  <div class="pillgroup" role="tablist" aria-label="보기 방식">
+    <button id="tab-topic" role="tab" data-view="topic" aria-selected="true">주제별</button>
+    <button id="tab-role" role="tab" data-view="role" aria-selected="false">직군별</button>
+  </div>
+  <a class="btn btn-primary" href="https://github.com/hy0909?tab=stars" target="_blank" rel="noopener">GitHub 스타</a>
+</div></nav>
 
-<div class="wrap">
-  <header>
-    <div>
-      <div class="eyebrow">GitHub Stars · hy0909</div>
-      <h1>스킬 아카이브</h1>
+<header class="hero"><div class="inner">
+  <div>
+    <span class="badge"><span class="dot" style="--c:var(--b-gd)"></span>그라데이션 생성기 7곳 추가</span>
+    <h1>쓸 만한 스킬과 도구를 한곳에</h1>
+    <p>스타를 누른 GitHub 저장소와 자주 쓰는 웹 도구를 모았습니다. 주제별로 보거나 개발자·기획자·마케터 직군별로 나눠 볼 수 있습니다.</p>
+    <div class="ctas">
+      <a class="btn btn-primary" href="#list">목록 보기</a>
+      <a class="btn btn-secondary" href="https://github.com/hy0909/skill-archive" target="_blank" rel="noopener">저장소 보기</a>
     </div>
-    <div class="meta">스타 12개 + 웹사이트 9개 · 2026-11-25 기준<br><a href="https://github.com/hy0909?tab=stars" target="_blank" rel="noopener">github.com/hy0909 스타 목록</a></div>
-  </header>
-
-  <div class="controls">
-    <div class="tabs" role="tablist" aria-label="보기 방식">
-      <button id="tab-topic" role="tab" aria-selected="true" data-view="topic">주제별</button>
-      <button id="tab-role" role="tab" aria-selected="false" data-view="role">직군별</button>
-    </div>
-    <div class="src" aria-label="출처">
+  </div>
+  <div class="mock"><div class="mock-in">
+    <div class="mock-head"><b>찾기</b><span id="result-n">20개</span></div>
+    <label class="field">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="이름, 설명, 태그로 찾기" aria-label="검색">
+    </label>
+    <div class="seg" aria-label="출처">
       <button id="src-all" data-src="all" aria-pressed="true">전체</button>
-      <button id="src-repo" data-src="repo" aria-pressed="false">깃허브 스타</button>
+      <button id="src-repo" data-src="repo" aria-pressed="false">GitHub</button>
       <button id="src-site" data-src="site" aria-pressed="false">웹사이트</button>
     </div>
-    <input id="q" type="search" placeholder="이름, 설명, 태그로 찾기" aria-label="검색">
+    <div class="quick" aria-label="자주 찾는 말">
+      <button data-q="그라데이션">그라데이션</button><button data-q="claude-code">Claude Code</button><button data-q="폰트">폰트</button><button data-q="디자인 시스템">디자인 시스템</button>
+    </div>
+    <div class="stats">
+      <div><b id="st-all">0</b><span>전체</span></div>
+      <div><b id="st-repo">0</b><span>저장소</span></div>
+      <div><b id="st-site">0</b><span>웹사이트</span></div>
+    </div>
+  </div></div>
+</div></header>
+
+<div class="cats"><div class="inner" id="cats" aria-label="분류"></div></div>
+
+<main id="list"><div class="inner" id="groups"></div></main>
+
+<section class="cta"><div class="inner"><div class="cta-band">
+  <div><h2>스타 목록은 계속 늘어납니다</h2><p>GitHub에서 스타를 누른 저장소를 원본 목록에서 바로 볼 수 있습니다.</p></div>
+  <a class="btn btn-primary" href="https://github.com/hy0909?tab=stars" target="_blank" rel="noopener">원본 스타 목록 보기</a>
+</div></div></section>
+
+<footer><div class="inner">
+  <div><span class="wordmark">Skill Archive</span><small>hy0909 · 스타 수는 2026-11-25 기준</small></div>
+  <div class="cols">
+    <div><b>분류</b><a href="#tab-topic" data-set="topic">주제별</a><a href="#tab-role" data-set="role">직군별</a></div>
+    <div><b>링크</b><a href="https://github.com/hy0909/skill-archive" target="_blank" rel="noopener">저장소</a><a href="https://github.com/hy0909?tab=stars" target="_blank" rel="noopener">GitHub 스타</a></div>
   </div>
+</div></footer>
 
-  <div class="layout">
-    <nav class="index" aria-label="분류 색인">
-      <h2 id="idx-title">분류</h2>
-      <ul id="idx"></ul>
-      <p class="note" id="idx-note"></p>
-    </nav>
-    <main id="list"></main>
-  </div>
-
-  <footer>스타 수는 2026-11-25에 받아 온 값이라 지금과 다를 수 있습니다. 직군 분류는 저장소 설명을 보고 붙인 것이라 실제로 써 보며 고쳐 나가면 됩니다.</footer>
-</div>
-
+<script src="data.js"></script>
 <script>
-const TOPICS=[
-  {id:"sk",code:"SK",name:"에이전트 스킬",desc:"Claude Code, Codex 같은 코딩 에이전트에 붙여 쓰는 스킬과 도구 묶음"},
-  {id:"ds",code:"DS",name:"디자인 시스템·규격",desc:"디자인 규칙을 사람과 에이전트가 같이 읽게 정리한 시스템과 문서 형식"},
-  {id:"ft",code:"FT",name:"폰트",desc:"한글 본문용 고딕 서체. 프리텐다드와 그걸 손본 파생 서체"},
-  {id:"gr",code:"GR",name:"그래픽·편집 도구",desc:"화면 효과와 이미지 편집에 쓰는 도구"},
-  {id:"gd",code:"GD",name:"그라데이션 생성기",desc:"배경용 메시·셰이더 그라데이션을 화면에서 바로 만들고 이미지·영상·코드로 내보내는 웹 도구"}
-];
-const ROLES=[
-  {id:"dev",name:"개발자",desc:"코드에 바로 붙이거나 설치해서 쓰는 것"},
-  {id:"pm",name:"기획자",desc:"구조를 정리하고, 문서를 쓰고, 결과물을 검토할 때 쓰는 것"},
-  {id:"mkt",name:"마케터",desc:"랜딩 페이지, 배너, 콘텐츠 비주얼을 만들 때 쓰는 것"}
-];
-const ITEMS=[
-  {n:"nextlevelbuilder/ui-ux-pro-max-skill",t:"sk",s:153854,l:"Python",
-   d:"웹·앱 화면을 만들 때 스타일, 색 조합, 폰트 짝, UX 가이드를 찾아 골라 주는 스킬.",
-   tags:["claude-code","cursor","ui-design","landing-page"],
-   r:{dev:"화면 코드를 짤 때 스타일과 색 조합을 정해 준다.",mkt:"랜딩 페이지 시안을 빠르게 뽑을 때 쓴다.",pm:"화면 기획 단계에서 참고할 UX 가이드가 들어 있다."}},
-  {n:"pbakaus/impeccable",t:"sk",s:116439,l:"Rust",
-   d:"코딩 에이전트용 디자인 어휘 모음. 다듬기·비평·점검 명령으로 AI 티 나는 화면을 내보내기 전에 걸러 낸다.",
-   tags:["agent-skills","design","anti-slop"],
-   r:{dev:"만든 화면을 에이전트에게 다시 다듬게 할 때 쓴다.",pm:"결과물 비평·점검 명령을 검토 기준으로 쓸 수 있다."}},
-  {n:"garrytan/gstack",t:"sk",s:142601,l:"TypeScript",
-   d:"Claude Code 설정 묶음. CEO, 디자이너, 엔지니어링 매니저, 릴리스·문서·QA 담당 역할을 하는 도구 23개.",
-   tags:["claude-code","workflow"],
-   r:{pm:"CEO·문서 담당 역할로 기획 검토와 문서 정리를 맡길 수 있다.",dev:"릴리스·QA 역할로 배포 전 점검을 맡긴다."}},
-  {n:"caru-ini/stack-diagram",t:"sk",s:2889,l:"TypeScript",
-   d:"쓰는 기술을 한 문장으로 적으면 공식 로고가 들어간 시스템 구조도를 그려 준다.",
-   tags:["agent-skills","diagram","architecture"],
-   r:{dev:"시스템 구성도를 문서에 넣을 때 쓴다.",pm:"기획서에 서비스 구조를 한 장으로 보여 줄 때 쓴다."}},
-  {n:"morluto/rea",t:"sk",s:477502,l:"TypeScript",
-   d:"앱이 어떻게 동작하는지부터 실행 파일 내부까지 에이전트로 거꾸로 분석하는 도구.",
-   tags:["agent-skills","reverse-engineering","mcp","security"],
-   r:{dev:"남의 앱이나 바이너리 구조를 뜯어볼 때 쓴다."}},
-  {n:"google-labs-code/design.md",t:"ds",s:29098,l:"TypeScript",
-   d:"디자인 시스템을 코딩 에이전트에게 알려 주는 문서 형식. DESIGN.md 파일 하나로 브랜드 규칙을 계속 기억하게 한다.",
-   tags:["design-system","spec"],
-   r:{dev:"에이전트가 화면을 만들 때 디자인 규칙을 지키게 한다.",pm:"브랜드·화면 규칙을 문서 한 장으로 정리하는 틀로 쓴다.",mkt:"채널마다 브랜드 톤을 똑같이 맞출 때 기준 문서가 된다."}},
-  {n:"daangn/seed-design",t:"ds",s:1195,l:"TypeScript",
-   d:"당근이 만든 SEED 디자인 시스템. 컴포넌트와 토큰 구성을 참고하기 좋다.",
-   tags:["design-system"],
-   r:{dev:"실서비스 디자인 시스템 코드 구조를 참고한다.",pm:"컴포넌트 이름과 상태 정의 방식을 참고한다."}},
-  {n:"orioncactus/pretendard",t:"ft",s:3667,l:"CSS",
-   d:"어느 플랫폼에서든 쓸 수 있는 system-ui 대체 글꼴.",
-   tags:["font","typeface"],
-   r:{dev:"웹·앱 기본 서체로 바로 붙인다.",mkt:"배너·상세 페이지 본문 서체로 쓴다."}},
-  {n:"Jihwan-Suh/PyeojinGothic",t:"ft",s:48,l:"CSS",
-   d:"프리텐다드의 획을 손봐 만든 중립적인 본문용 고딕 서체.",
-   tags:["font","typeface"],
-   r:{mkt:"프리텐다드보다 덜 딱딱한 본문이 필요할 때 쓴다."}},
-  {n:"Jihwan-Suh/JayeonSans",t:"ft",s:4,l:"CSS",
-   d:"프리텐다드를 손봐 획의 흐름을 자연스럽게 살린 폰트.",
-   tags:["font"],
-   r:{mkt:"부드러운 톤의 콘텐츠 비주얼에 쓴다."}},
-  {n:"paper-design/shaders",t:"gr",s:4031,l:"TypeScript",
-   site:"https://shaders.paper.design/",
-   d:"따로 설치할 게 없는 캔버스 셰이더. 사이트에서 효과를 골라 값을 바꿔 보고, React 컴포넌트나 GLSL 코드로 가져간다.",
-   tags:["react","webgl","shaders"],
-   r:{dev:"배경 그라데이션·움직이는 효과를 코드로 붙인다.",mkt:"랜딩 페이지 히어로 배경 효과로 쓴다."}},
-  {n:"robbietilton/Compositor",t:"gr",s:18826,l:"Swift",
-   d:"맥에서 쓰는 포토샵 대안 이미지 편집 앱.",
-   tags:["mac","image-editor"],
-   r:{mkt:"배너·썸네일 이미지를 가볍게 편집할 때 쓴다."}},
-  {n:"ASCII Magic",kind:"site",site:"https://www.ascii-magic.com/",t:"gr",s:null,l:"웹",
-   d:"사진·영상을 ASCII 아트, 픽셀 아트, 하프톤, 글리치 같은 효과 100여 가지로 바꿔 주는 브라우저 도구. 가입 없이 쓴다.",
-   tags:["ascii","image-effect","video"],
-   r:{mkt:"SNS 콘텐츠·배너 이미지에 레트로 효과를 입힐 때 쓴다.",dev:"페이지에 넣을 ASCII 아트를 이미지에서 바로 뽑는다."}},
-  {n:"Paper Mesh Gradient",kind:"site",site:"https://shaders.paper.design/mesh-gradient",t:"gd",s:null,l:"웹",
-   d:"Paper Shaders의 메시 그라데이션 페이지. 색과 움직임을 조절해 보고 React 컴포넌트나 GLSL 코드로 가져간다.",
-   tags:["mesh-gradient","react","glsl"],
-   r:{dev:"조절한 값을 그대로 React 코드로 붙인다.",mkt:"랜딩 페이지 배경 시안을 빠르게 만들어 본다."}},
-  {n:"NEAT",kind:"site",site:"https://neat.firecms.co",t:"gd",s:null,l:"웹",
-   d:"움직이는 3D 그라데이션 배경 생성기. 프리셋 25개로 시작해 코드, PNG, MP4로 내보낸다.",
-   tags:["animated","3d","mp4"],
-   r:{mkt:"영상·SNS용 움직이는 배경을 MP4로 뽑는다.",dev:"만든 배경을 코드로 내보내 페이지에 넣는다."}},
-  {n:"ShaderGradient",kind:"site",site:"https://www.shadergradient.co/customize",t:"gd",s:null,l:"웹",
-   d:"움직이는 셰이더 그라데이션을 만들어 Framer, Figma, React에서 쓴다.",
-   tags:["framer","figma","react"],
-   r:{mkt:"Framer로 만드는 랜딩 페이지 배경에 바로 쓴다.",dev:"React 컴포넌트로 붙인다."}},
-  {n:"UX Pilot Gradient Studio",kind:"site",site:"https://uxpilot.ai/labs/gradient-generator",t:"gd",s:null,l:"웹",
-   d:"메시, 오로라, 선형, 원뿔형 등 그라데이션 13종과 팔레트 24개. 노이즈 질감과 유리 효과, 애니메이션까지 넣는다.",
-   tags:["mesh","grain","aurora"],
-   r:{mkt:"질감 있는 배경 이미지를 여러 종류로 비교해 본다."}},
-  {n:"MagicPattern",kind:"site",site:"https://www.magicpattern.design/tools/shader-background-generator",t:"gd",s:null,l:"웹",
-   d:"물결·실크·노이즈 느낌의 WebGL 그라데이션 배경 생성기. 고해상도 이미지나 반복 재생 MP4·WebM으로 내보낸다.",
-   tags:["webgl","video","branding"],
-   r:{mkt:"브랜딩 배경과 반복 재생 영상을 만든다.",dev:"웹사이트 배경 영상을 WebM으로 받아 넣는다."}},
-  {n:"MakeGradient",kind:"site",site:"https://www.svgrepo.com/tool/makegradient/",t:"gd",s:null,l:"웹",
-   d:"SVG Repo에서 운영하는 그라데이션 생성 도구.",
-   tags:["svg","gradient"],
-   r:{mkt:"배너·썸네일 배경용 그라데이션을 만든다."}},
-  {n:"Aurora Gradient Editor",kind:"site",site:"https://a-bashtannik.github.io/aurora-gradient-editor/",t:"gd",s:null,l:"웹",
-   d:"색 덩어리를 겹쳐 오로라 느낌 배경을 만드는 편집기. 기준 색 하나만 바꾸면 나머지 색이 어울리게 따라 바뀌고, CSS와 SwiftUI 코드로 내보낸다.",
-   tags:["aurora","css","swiftui","oklch"],
-   r:{dev:"앱 배경을 CSS·SwiftUI 코드로 바로 가져간다.",mkt:"브랜드 색 하나로 어울리는 배경을 만든다."}}
-];
-ITEMS.forEach(x=>{x.kind=x.kind||"repo"});
-ITEMS.sort((a,b)=>(b.s??-1)-(a.s??-1));
-TOPICS.forEach(t=>{let i=0;ITEMS.filter(x=>x.t===t.id).forEach(x=>x.call=t.code+"-"+String(++i).padStart(2,"0"))});
-
 const $=s=>document.querySelector(s);
 const fmt=n=>n>=1000?(n/1000).toFixed(n>=100000?0:1).replace(/\.0$/,"")+"k":String(n);
-const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const topicOf=id=>TOPICS.find(t=>t.id===id);
 const roleName=id=>ROLES.find(r=>r.id===id).name;
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let view=location.hash==="#role"?"role":"topic",src="all";
 
-let view="topic",src="all";
-document.querySelectorAll(".src button").forEach(b=>b.addEventListener("click",()=>{src=b.dataset.src;render()}));
-try{const v=localStorage.getItem("sa-view");if(v==="role"||v==="topic")view=v}catch(e){}
-if(location.hash==="#role"||location.hash==="#topic")view=location.hash.slice(1);
+$("#st-all").textContent=ITEMS.length;
+$("#st-repo").textContent=ITEMS.filter(x=>x.kind==="repo").length;
+$("#st-site").textContent=ITEMS.filter(x=>x.kind==="site").length;
 
-function match(x,q){
-  if(!q)return true;
+function match(x,q){if(!q)return true;
   const hay=[x.n,x.d,x.l,...x.tags,topicOf(x.t).name,...Object.keys(x.r).map(roleName),...Object.values(x.r)].join(" ").toLowerCase();
-  return q.toLowerCase().split(/\s+/).every(w=>hay.includes(w));
-}
+  return q.toLowerCase().split(/\s+/).every(w=>hay.includes(w));}
 
 function card(x,role){
   const t=topicOf(x.t);const isRepo=x.kind==="repo";
   const [owner,name]=isRepo?x.n.split("/"):[new URL(x.site).hostname.replace(/^www\./,""),x.n];
   const href=isRepo?"https://github.com/"+x.n:x.site;
-  const why=role?`<p class="why"><b>${roleName(role)}</b> · ${esc(x.r[role])}</p>`:"";
-  const roles=role?"":Object.keys(x.r).map(r=>`<span class="chip role">${roleName(r)}</span>`).join("");
-  const right=isRepo?`<span class="stars" title="${x.s.toLocaleString()} stars">★ ${fmt(x.s)}</span>`:`<span class="site-badge">웹사이트</span>`;
-  const links=`<div class="links"><a href="${href}" target="_blank" rel="noopener">${isRepo?"GitHub":"사이트 열기"} ↗</a>${isRepo&&x.site?`<a href="${x.site}" target="_blank" rel="noopener">사이트 ↗</a>`:""}</div>`;
-  return `<article class="card" style="--gc:var(--c-${x.t})">
-    <div class="top"><span class="call">${x.call} · ${t.name}</span>${right}</div>
-    <div><h4><a href="${href}" target="_blank" rel="noopener">${esc(name)}</a></h4><div class="owner">${esc(owner)}</div></div>
-    <p class="desc">${esc(x.d)}</p>${why}${links}
-    <div class="chips">${roles}<span class="chip lang">${x.l}</span>${x.tags.slice(0,3).map(g=>`<span class="chip">#${esc(g)}</span>`).join("")}</div>
+  const right=isRepo?`<span class="stars"><i>★</i>${fmt(x.s)}</span>`:`<span class="stars">웹사이트</span>`;
+  const frag=role?`<div class="fragment"><div class="who"><span class="av">${roleName(role)[0]}</span>${roleName(role)}은 이렇게 써요</div>${esc(x.r[role])}</div>`:"";
+  const avs=role?"":`<div class="avatars" aria-label="직군">${Object.keys(x.r).map(r=>`<span class="av" title="${roleName(r)}">${roleName(r)[0]}</span>`).join("")}</div>`;
+  const links=`<div class="links">${isRepo&&x.site?`<a class="btn btn-secondary" href="${x.site}" target="_blank" rel="noopener">사이트</a>`:""}<a class="btn btn-primary" href="${href}" target="_blank" rel="noopener">${isRepo?"GitHub":"열기"}</a></div>`;
+  return `<article class="card">
+    <div class="top"><span class="badge"><span class="dot" style="--c:var(--b-${x.t})"></span>${t.name}</span>${right}</div>
+    <h3>${esc(name)}</h3><div class="owner">${esc(owner)}</div>
+    <p class="desc">${esc(x.d)}</p>${frag}
+    <div class="foot">${avs||"<span></span>"}${links}</div>
   </article>`;
 }
 
 function render(){
   const q=$("#q").value.trim();
   const items=ITEMS.filter(x=>match(x,q)&&(src==="all"||x.kind===src||(src==="site"&&x.site)));
-  document.querySelectorAll(".src button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.src===src));
-  document.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.view===view));
+  document.querySelectorAll(".pillgroup button").forEach(b=>b.setAttribute("aria-selected",b.dataset.view===view));
+  document.querySelectorAll(".seg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.src===src));
+  $("#result-n").textContent=items.length+"개";
   const groups=view==="topic"
-    ?TOPICS.map(t=>({id:t.id,label:t.name,code:t.code,desc:t.desc,list:items.filter(x=>x.t===t.id),role:null}))
-    :ROLES.map(r=>({id:r.id,label:r.name,code:null,desc:r.desc,list:items.filter(x=>x.r[r.id]),role:r.id}));
-  $("#idx-title").textContent=view==="topic"?"주제":"직군";
-  $("#idx-note").textContent=view==="topic"?"스타 목록을 내용 기준으로 묶었습니다. 한 저장소는 주제 하나에만 들어갑니다.":"한 저장소가 여러 직군에 함께 들어갈 수 있습니다. 카드마다 그 직군에서 어떻게 쓰는지 적어 두었습니다.";
-  $("#idx").innerHTML=groups.map(g=>`<li><a href="#g-${g.id}" data-jump="g-${g.id}"><span>${g.label}</span><span class="n">${g.list.length}</span></a></li>`).join("");
-  const html=groups.filter(g=>g.list.length).map(g=>`<section class="group" id="g-${g.id}" style="--gc:var(--c-${g.id in {sk:1,ds:1,ft:1,gr:1,gd:1}?g.id:"sk"})">
-    <div class="ghead">${g.code?`<span class="code">${g.code}</span>`:""}<h3>${g.label}</h3><span class="n eyebrow">${g.list.length}개</span><p>${g.desc}</p></div>
-    <div class="grid">${g.list.map(x=>card(x,g.role)).join("")}</div></section>`).join("");
-  $("#list").innerHTML=html||`<p class="empty">“${esc(q)}”에 맞는 스킬이 없습니다. 다른 낱말로 찾아 보세요.</p>`;
+    ?TOPICS.map(t=>({id:t.id,label:t.name,desc:t.desc,dot:`var(--b-${t.id})`,list:items.filter(x=>x.t===t.id),role:null}))
+    :ROLES.map(r=>({id:r.id,label:r.name,desc:r.desc,dot:null,list:items.filter(x=>x.r[r.id]),role:r.id}));
+  $("#cats").innerHTML=groups.map(g=>`<a class="cattab" href="#g-${g.id}" data-jump="g-${g.id}">${g.dot?`<span class="dot" style="--c:${g.dot}"></span>`:""}${g.label}<span class="n">${g.list.length}</span></a>`).join("");
+  $("#groups").innerHTML=groups.filter(g=>g.list.length).map(g=>`<section class="group" id="g-${g.id}">
+    <div class="ghead"><h2>${g.dot?`<span class="dot" style="--c:${g.dot}"></span>`:""}${g.label}</h2><p>${g.desc}</p></div>
+    <div class="grid">${g.list.map(x=>card(x,g.role)).join("")}</div></section>`).join("")
+    ||`<p class="empty">“${esc(q)}”에 맞는 항목이 없습니다. 다른 낱말로 찾아 보세요.</p>`;
+  spy();
 }
-
-document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>{
-  view=b.dataset.view;try{localStorage.setItem("sa-view",view)}catch(e){}
-  history.replaceState(null,"","#"+view);render();
-}));
-$("#idx").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();
-  document.getElementById(a.dataset.jump)?.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})});
+function spy(){const secs=[...document.querySelectorAll("section.group")];let cur=null;
+  for(const s of secs){if(s.getBoundingClientRect().top<160)cur=s.id}
+  document.querySelectorAll(".cattab").forEach(a=>a.classList.toggle("on",a.dataset.jump===cur));}
+addEventListener("scroll",spy,{passive:true});
+function setView(v){view=v;history.replaceState(null,"","#"+v);render()}
+document.querySelectorAll(".pillgroup button").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.view)));
+document.querySelectorAll("[data-set]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();setView(a.dataset.set);scrollTo({top:0,behavior:reduce?"auto":"smooth"})}));
+document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>{src=b.dataset.src;render()}));
+document.querySelectorAll(".quick button").forEach(b=>b.addEventListener("click",()=>{$("#q").value=b.dataset.q;render();$("#list").scrollIntoView({behavior:reduce?"auto":"smooth"})}));
+$("#cats").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();
+  document.getElementById(a.dataset.jump)?.scrollIntoView({behavior:reduce?"auto":"smooth"})});
 $("#q").addEventListener("input",render);
-window.addEventListener("hashchange",()=>{if(location.hash==="#role"||location.hash==="#topic"){view=location.hash.slice(1);render()}});
 render();
 </script>
 </body>
