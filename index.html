@@ -45,97 +45,79 @@ body{background:var(--canvas);color:var(--body);font-family:var(--f-body);font-s
 :focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 h1,h2,h3{font-family:var(--f-display);font-weight:600;color:var(--ink);margin:0;text-wrap:balance}
 
-/* 버튼 */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 20px;border-radius:8px;font:600 14px/1 var(--f-body);text-decoration:none;border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:background .15s}
+/* 레이아웃: 블로그형 2단. 왼쪽 고정 사이드바(검색·카테고리), 오른쪽 글 목록 */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 16px;border-radius:8px;font:600 14px/1 var(--f-body);text-decoration:none;border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:background .15s}
 .btn-primary{background:var(--primary);color:var(--on-primary)}
 .btn-primary:hover{background:var(--primary-active)}
 .btn-secondary{background:var(--canvas);color:var(--ink);border-color:var(--hairline)}
 .btn-secondary:hover{background:var(--surface-soft)}
 
-/* 상단 바 64px */
-.topnav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--canvas) 88%,transparent);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--hairline-soft)}
+.topnav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--canvas) 90%,transparent);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--hairline)}
 .topnav .inner{height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .wordmark{font-family:"Cal Sans",var(--f-display);font-size:22px;letter-spacing:-.5px;color:var(--ink);text-decoration:none;white-space:nowrap}
-.pillgroup{display:inline-flex;background:var(--surface-soft);border:1px solid var(--hairline-soft);border-radius:999px;padding:4px;gap:2px}
-.pillgroup button{font:500 14px/1.4 var(--f-body);border:0;background:transparent;color:var(--muted);padding:6px 16px;border-radius:999px;cursor:pointer;white-space:nowrap}
-.pillgroup button:hover{color:var(--ink)}
-.pillgroup button[aria-selected="true"]{background:var(--canvas);color:var(--ink);box-shadow:var(--shadow)}
-@media (max-width:640px){.topnav .btn{display:none}}
 
-/* 첫 화면 */
-.hero .inner{padding-block:96px 72px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px;align-items:center}
-@media (max-width:900px){.hero .inner{grid-template-columns:1fr;padding-block:56px 48px;gap:32px}}
-.badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface-card);color:var(--ink);font:500 13px/1.4 var(--f-body);border-radius:999px;padding:4px 12px}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--c,var(--muted));flex:none}
-.hero h1{font-size:clamp(40px,6vw,64px);line-height:1.08;letter-spacing:-2px;margin:20px 0 20px}
-.hero p{font-size:18px;color:var(--muted);margin:0 0 32px;max-width:32em}
-.hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.layout{display:grid;grid-template-columns:260px minmax(0,1fr);gap:64px;padding-block:48px 96px}
+.layout>*{min-width:0}
+@media (max-width:900px){.layout{grid-template-columns:1fr;gap:24px;padding-block:24px 64px}}
 
-/* 첫 화면 오른쪽: 실제로 쓰는 검색 패널 */
-.mock{background:var(--surface-card);border-radius:16px;padding:12px}
-.mock-in{background:var(--canvas);border:1px solid var(--hairline);border-radius:12px;padding:20px;box-shadow:var(--shadow)}
-.mock-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.mock-head b{font:600 16px/1.4 var(--f-body);color:var(--ink)}
-.mock-head span{font:500 13px/1.4 var(--f-body);color:var(--muted)}
-.field{display:flex;align-items:center;gap:10px;height:40px;border:1px solid var(--hairline);border-radius:8px;padding:0 14px;background:var(--canvas);color:var(--muted)}
+/* 왼쪽 사이드바 */
+.side{position:sticky;top:96px;align-self:start;display:flex;flex-direction:column;gap:28px;max-height:calc(100vh - 120px);overflow-y:auto;padding-right:4px}
+@media (max-width:900px){.side{position:static;max-height:none;overflow:visible;gap:16px;padding:0}}
+.field{display:flex;align-items:center;gap:10px;height:40px;border:1px solid var(--hairline);border-radius:8px;padding:0 12px;background:var(--canvas);color:var(--muted)}
 .field:focus-within{border-color:var(--ink);box-shadow:0 0 0 3px var(--hairline)}
-.field input{flex:1;min-width:0;border:0;background:transparent;font:400 16px/1.5 var(--f-body);color:var(--ink);outline:none}
-.seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--surface-soft);border-radius:8px;padding:4px;margin-top:12px}
-.seg button{font:500 14px/1.4 var(--f-body);border:0;background:transparent;color:var(--muted);height:32px;border-radius:6px;cursor:pointer}
+.field input{flex:1;min-width:0;border:0;background:transparent;font:400 15px/1.5 var(--f-body);color:var(--ink);outline:none}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--surface-soft);border:1px solid var(--hairline-soft);border-radius:999px;padding:3px;margin-top:10px}
+.seg button{font:500 13px/1.4 var(--f-body);border:0;background:transparent;color:var(--muted);height:30px;border-radius:999px;cursor:pointer}
 .seg button[aria-pressed="true"]{background:var(--canvas);color:var(--ink);box-shadow:var(--shadow)}
-.quick{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
-.quick button{font:500 13px/1.4 var(--f-body);border:1px solid var(--hairline);background:var(--canvas);color:var(--body);border-radius:999px;padding:4px 12px;cursor:pointer}
-.quick button:hover{border-color:var(--ink);color:var(--ink)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid var(--hairline-soft)}
-.stats b{display:block;font-family:"Cal Sans",var(--f-display);font-weight:600;font-size:28px;letter-spacing:-.5px;color:var(--ink);line-height:1.2;font-variant-numeric:tabular-nums}
-.stats span{font:500 13px/1.4 var(--f-body);color:var(--muted)}
+.navgroup h2{font:600 12px/1.4 var(--f-body);letter-spacing:.04em;color:var(--muted-soft);margin:0 0 8px 10px;font-family:var(--f-body)}
+.navgroup ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.navgroup a{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:8px;font:500 14px/1.4 var(--f-body);color:var(--body);text-decoration:none}
+.navgroup a:hover{background:var(--surface-soft);color:var(--ink)}
+.navgroup a[aria-current="true"]{background:var(--surface-card);color:var(--ink);font-weight:600}
+.navgroup .n{margin-left:auto;font:400 12px/1 var(--f-code);color:var(--muted-soft)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--c,var(--muted));flex:none}
+.av{width:22px;height:22px;border-radius:50%;display:inline-grid;place-items:center;font:600 11px/1 var(--f-body);color:var(--ink);background:var(--surface-card);border:1px solid var(--hairline);flex:none}
+.side .about{font-size:13px;line-height:1.6;color:var(--muted);margin:0;padding:16px;background:var(--surface-soft);border-radius:12px}
+@media (max-width:900px){
+  .navgroup{min-width:0}
+  .navgroup h2{display:none}
+  .navgroup ul{flex-direction:row;overflow-x:auto;gap:6px;scrollbar-width:none;padding-bottom:2px}
+  .navgroup ul::-webkit-scrollbar{display:none}
+  .navgroup a{border:1px solid var(--hairline);border-radius:999px;white-space:nowrap;padding:6px 12px}
+  .navgroup a[aria-current="true"]{background:var(--primary);color:var(--on-primary);border-color:var(--primary)}
+  .navgroup a[aria-current="true"] .n{color:inherit;opacity:.7}
+  .side .about{display:none}
+}
 
-/* 분류 탭 줄 */
-.cats{position:sticky;top:64px;z-index:5;background:var(--canvas);border-bottom:1px solid var(--hairline-soft)}
-.cats .inner{display:flex;gap:4px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
-.cats .inner::-webkit-scrollbar{display:none}
-.cattab{display:inline-flex;align-items:center;gap:8px;font:500 14px/1.4 var(--f-body);color:var(--muted);padding:8px 14px;border-radius:8px;text-decoration:none;white-space:nowrap}
-.cattab:hover{color:var(--ink);background:var(--surface-soft)}
-.cattab.on{color:var(--ink);background:var(--surface-card)}
-.cattab .n{font-family:var(--f-code);font-size:12px;color:var(--muted-soft)}
-
-/* 목록 */
-main .inner{padding-block:48px 24px}
-section.group{padding-bottom:72px;scroll-margin-top:136px}
-.ghead{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:8px 24px;margin-bottom:24px}
-.ghead h2{font-size:clamp(28px,3.4vw,36px);letter-spacing:-1px;line-height:1.15;display:flex;align-items:center;gap:12px}
-.ghead h2 .dot{width:10px;height:10px}
-.ghead p{margin:0;color:var(--muted);font-size:16px;max-width:36em}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-@media (max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:640px){.grid{grid-template-columns:1fr}}
-.card{background:var(--surface-card);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:14px;min-width:0}
-.card .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.card .top .badge{background:var(--canvas)}
-.stars{font:500 13px/1.4 var(--f-body);color:var(--ink);font-variant-numeric:tabular-nums;display:inline-flex;align-items:center;gap:4px}
-.stars i{font-style:normal;color:var(--star)}
-.card h3{font-family:var(--f-body);font-size:18px;font-weight:600;letter-spacing:0;line-height:1.4;overflow-wrap:anywhere}
-.card .owner{font:400 13px/1.4 var(--f-code);color:var(--muted);margin-top:-10px;overflow-wrap:anywhere}
-.card .desc{margin:0;font-size:14px;line-height:1.6;color:var(--body)}
-.fragment{background:var(--canvas);border:1px solid var(--hairline);border-radius:8px;padding:12px 14px;font-size:14px;line-height:1.5;color:var(--body)}
+/* 오른쪽 글 목록 */
+.feedhead{padding-bottom:28px;border-bottom:1px solid var(--hairline)}
+.feedhead .crumb{font:500 13px/1.4 var(--f-body);color:var(--muted);display:flex;align-items:center;gap:8px}
+.feedhead h1{font-size:clamp(34px,4.4vw,48px);line-height:1.1;letter-spacing:-1.5px;margin:10px 0 12px}
+.feedhead p{margin:0;font-size:17px;color:var(--muted);max-width:36em}
+.post{padding:32px 0;border-bottom:1px solid var(--hairline);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 32px}
+.post .meta{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font:500 13px/1.4 var(--f-body);color:var(--muted)}
+.post .meta .sep{color:var(--hairline)}
+.post .meta .code{font-family:var(--f-code);font-weight:400}
+.post .meta .star{color:var(--star)}
+.post h2{font-size:clamp(24px,2.6vw,28px);line-height:1.2;letter-spacing:-.5px;overflow-wrap:anywhere}
+.post h2 a{color:inherit;text-decoration:none}
+.post h2 a:hover{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
+.post .owner{font:400 13px/1.4 var(--f-code);color:var(--muted);margin-top:4px;overflow-wrap:anywhere}
+.post .body{grid-column:1;min-width:0;display:flex;flex-direction:column;gap:14px}
+.post .desc{margin:0;font-size:16px;line-height:1.7;color:var(--body);max-width:40em}
+.fragment{background:var(--surface-card);border-radius:12px;padding:14px 16px;font-size:15px;line-height:1.6;color:var(--body);max-width:40em}
 .fragment .who{display:flex;align-items:center;gap:8px;font-weight:600;color:var(--ink);margin-bottom:4px}
-.foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:4px}
-.avatars{display:flex}
-.av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:600 12px/1 var(--f-body);color:var(--ink);background:var(--canvas);border:2px solid var(--surface-card);margin-left:-6px}
-.av:first-child{margin-left:0}
-.links{display:flex;gap:8px}
-.links .btn{height:34px;padding:0 14px;font-size:13px}
-.empty{padding:64px 0;text-align:center;color:var(--muted)}
-
-/* 아래 안내 띠 */
-.cta .inner{padding-block:0 96px}
-.cta-band{background:var(--surface-card);border-radius:12px;padding:48px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px}
-@media (max-width:640px){.cta-band{padding:32px 24px}}
-.cta-band h2{font-size:28px;letter-spacing:-.5px;line-height:1.2}
-.cta-band p{margin:8px 0 0;color:var(--muted)}
+.fragment .who .av{background:var(--canvas)}
+.post .tags{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.chip{font:500 12px/1.4 var(--f-body);background:var(--surface-card);color:var(--body);border-radius:999px;padding:3px 10px}
+.chip.role{display:inline-flex;align-items:center;gap:6px;padding-left:4px;background:var(--canvas);border:1px solid var(--hairline)}
+.chip.role .av{width:18px;height:18px;font-size:10px;border:0}
+.post .links{grid-column:2;grid-row:2/4;display:flex;flex-direction:column;gap:8px;align-self:start;padding-top:4px}
+@media (max-width:640px){.post{grid-template-columns:1fr}.post .links{grid-column:1;grid-row:auto;flex-direction:row}}
+.empty{padding:64px 0;color:var(--muted)}
 
 footer{background:var(--surface-dark);color:var(--on-dark-soft);font-size:14px}
-footer .inner{padding-block:64px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px}
+footer .inner{padding-block:56px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px}
 footer .wordmark{color:var(--on-dark)}
 footer a{color:var(--on-dark);text-decoration:none}
 footer a:hover{text-decoration:underline}
@@ -148,59 +130,41 @@ footer small{display:block;margin-top:12px;color:var(--muted-soft)}
 </head>
 <body>
 <nav class="topnav"><div class="inner">
-  <a class="wordmark" href="#">Skill Archive</a>
-  <div class="pillgroup" role="tablist" aria-label="보기 방식">
-    <button id="tab-topic" role="tab" data-view="topic" aria-selected="true">주제별</button>
-    <button id="tab-role" role="tab" data-view="role" aria-selected="false">직군별</button>
-  </div>
+  <a class="wordmark" href="#all">Skill Archive</a>
   <a class="btn btn-primary" href="https://github.com/hy0909?tab=stars" target="_blank" rel="noopener">GitHub 스타</a>
 </div></nav>
 
-<header class="hero"><div class="inner">
-  <div>
-    <span class="badge"><span class="dot" style="--c:var(--b-gd)"></span>그라데이션 생성기 7곳 추가</span>
-    <h1>쓸 만한 스킬과 도구를 한곳에</h1>
-    <p>스타를 누른 GitHub 저장소와 자주 쓰는 웹 도구를 모았습니다. 주제별로 보거나 개발자·기획자·마케터 직군별로 나눠 볼 수 있습니다.</p>
-    <div class="ctas">
-      <a class="btn btn-primary" href="#list">목록 보기</a>
-      <a class="btn btn-secondary" href="https://github.com/hy0909/skill-archive" target="_blank" rel="noopener">저장소 보기</a>
+<div class="inner layout">
+  <aside class="side" aria-label="카테고리">
+    <div>
+      <label class="field">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="이름, 설명, 태그로 찾기" aria-label="검색">
+      </label>
+      <div class="seg" aria-label="출처">
+        <button id="src-all" data-src="all" aria-pressed="true">전체</button>
+        <button id="src-repo" data-src="repo" aria-pressed="false">GitHub</button>
+        <button id="src-site" data-src="site" aria-pressed="false">웹사이트</button>
+      </div>
     </div>
-  </div>
-  <div class="mock"><div class="mock-in">
-    <div class="mock-head"><b>찾기</b><span id="result-n">20개</span></div>
-    <label class="field">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" placeholder="이름, 설명, 태그로 찾기" aria-label="검색">
-    </label>
-    <div class="seg" aria-label="출처">
-      <button id="src-all" data-src="all" aria-pressed="true">전체</button>
-      <button id="src-repo" data-src="repo" aria-pressed="false">GitHub</button>
-      <button id="src-site" data-src="site" aria-pressed="false">웹사이트</button>
-    </div>
-    <div class="quick" aria-label="자주 찾는 말">
-      <button data-q="그라데이션">그라데이션</button><button data-q="claude-code">Claude Code</button><button data-q="폰트">폰트</button><button data-q="디자인 시스템">디자인 시스템</button>
-    </div>
-    <div class="stats">
-      <div><b id="st-all">0</b><span>전체</span></div>
-      <div><b id="st-repo">0</b><span>저장소</span></div>
-      <div><b id="st-site">0</b><span>웹사이트</span></div>
-    </div>
-  </div></div>
-</div></header>
+    <nav class="navgroup" aria-label="주제"><h2>주제</h2><ul id="nav-topic"></ul></nav>
+    <nav class="navgroup" aria-label="직군"><h2>직군</h2><ul id="nav-role"></ul></nav>
+    <p class="about">GitHub에서 스타를 누른 저장소와 자주 쓰는 웹 도구를 모았습니다. 스타 수는 2026-11-25 기준입니다.</p>
+  </aside>
 
-<div class="cats"><div class="inner" id="cats" aria-label="분류"></div></div>
-
-<main id="list"><div class="inner" id="groups"></div></main>
-
-<section class="cta"><div class="inner"><div class="cta-band">
-  <div><h2>스타 목록은 계속 늘어납니다</h2><p>GitHub에서 스타를 누른 저장소를 원본 목록에서 바로 볼 수 있습니다.</p></div>
-  <a class="btn btn-primary" href="https://github.com/hy0909?tab=stars" target="_blank" rel="noopener">원본 스타 목록 보기</a>
-</div></div></section>
+  <main>
+    <header class="feedhead">
+      <div class="crumb" id="crumb">스킬 아카이브</div>
+      <h1 id="title">전체 글</h1>
+      <p id="lede"></p>
+    </header>
+    <div id="feed"></div>
+  </main>
+</div>
 
 <footer><div class="inner">
   <div><span class="wordmark">Skill Archive</span><small>hy0909 · 스타 수는 2026-11-25 기준</small></div>
   <div class="cols">
-    <div><b>분류</b><a href="#tab-topic" data-set="topic">주제별</a><a href="#tab-role" data-set="role">직군별</a></div>
     <div><b>링크</b><a href="https://github.com/hy0909/skill-archive" target="_blank" rel="noopener">저장소</a><a href="https://github.com/hy0909?tab=stars" target="_blank" rel="noopener">GitHub 스타</a></div>
   </div>
 </div></footer>
@@ -212,60 +176,54 @@ const fmt=n=>n>=1000?(n/1000).toFixed(n>=100000?0:1).replace(/\.0$/,"")+"k":Stri
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const topicOf=id=>TOPICS.find(t=>t.id===id);
 const roleName=id=>ROLES.find(r=>r.id===id).name;
-const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
-let view=location.hash==="#role"?"role":"topic",src="all";
+let src="all";
 
-$("#st-all").textContent=ITEMS.length;
-$("#st-repo").textContent=ITEMS.filter(x=>x.kind==="repo").length;
-$("#st-site").textContent=ITEMS.filter(x=>x.kind==="site").length;
+function parseHash(){const h=location.hash.slice(1);
+  let m=h.match(/^topic-(\w+)$/);if(m&&topicOf(m[1]))return{type:"topic",id:m[1]};
+  m=h.match(/^role-(\w+)$/);if(m&&ROLES.find(r=>r.id===m[1]))return{type:"role",id:m[1]};
+  return null;}
 
 function match(x,q){if(!q)return true;
   const hay=[x.n,x.d,x.l,...x.tags,topicOf(x.t).name,...Object.keys(x.r).map(roleName),...Object.values(x.r)].join(" ").toLowerCase();
   return q.toLowerCase().split(/\s+/).every(w=>hay.includes(w));}
 
-function card(x,role){
+function post(x,role){
   const t=topicOf(x.t);const isRepo=x.kind==="repo";
   const [owner,name]=isRepo?x.n.split("/"):[new URL(x.site).hostname.replace(/^www\./,""),x.n];
   const href=isRepo?"https://github.com/"+x.n:x.site;
-  const right=isRepo?`<span class="stars"><i>★</i>${fmt(x.s)}</span>`:`<span class="stars">웹사이트</span>`;
-  const frag=role?`<div class="fragment"><div class="who"><span class="av">${roleName(role)[0]}</span>${roleName(role)}은 이렇게 써요</div>${esc(x.r[role])}</div>`:"";
-  const avs=role?"":`<div class="avatars" aria-label="직군">${Object.keys(x.r).map(r=>`<span class="av" title="${roleName(r)}">${roleName(r)[0]}</span>`).join("")}</div>`;
-  const links=`<div class="links">${isRepo&&x.site?`<a class="btn btn-secondary" href="${x.site}" target="_blank" rel="noopener">사이트</a>`:""}<a class="btn btn-primary" href="${href}" target="_blank" rel="noopener">${isRepo?"GitHub":"열기"}</a></div>`;
-  return `<article class="card">
-    <div class="top"><span class="badge"><span class="dot" style="--c:var(--b-${x.t})"></span>${t.name}</span>${right}</div>
-    <h3>${esc(name)}</h3><div class="owner">${esc(owner)}</div>
-    <p class="desc">${esc(x.d)}</p>${frag}
-    <div class="foot">${avs||"<span></span>"}${links}</div>
+  const meta=[`<span class="dot" style="--c:var(--b-${x.t})"></span><a href="#topic-${x.t}" style="color:inherit;text-decoration:none">${t.name}</a>`,`<span class="code">${x.call}</span>`,
+    isRepo?`<span><span class="star">★</span> ${fmt(x.s)}</span>`:"웹사이트",esc(x.l)].join('<span class="sep">/</span>');
+  const frag=role?`<div class="fragment"><div class="who"><span class="av">${roleName(role)[0]}</span>${roleName(role)} 활용 목적</div>${esc(x.r[role])}</div>`:"";
+  const roles=Object.keys(x.r).map(r=>`<a class="chip role" href="#role-${r}" style="text-decoration:none"><span class="av">${roleName(r)[0]}</span>${roleName(r)}</a>`).join("");
+  const tags=x.tags.slice(0,3).map(g=>`<span class="chip">#${esc(g)}</span>`).join("");
+  return `<article class="post">
+    <div class="meta">${meta}</div>
+    <div class="body">
+      <div><h2><a href="${href}" target="_blank" rel="noopener">${esc(name)}</a></h2><div class="owner">${esc(owner)}</div></div>
+      <p class="desc">${esc(x.d)}</p>${frag}
+      <div class="tags">${roles}${tags}</div>
+    </div>
+    <div class="links"><a class="btn btn-primary" href="${href}" target="_blank" rel="noopener">${isRepo?"GitHub":"사이트 열기"}</a>${isRepo&&x.site?`<a class="btn btn-secondary" href="${x.site}" target="_blank" rel="noopener">사이트</a>`:""}</div>
   </article>`;
 }
 
 function render(){
-  const q=$("#q").value.trim();
-  const items=ITEMS.filter(x=>match(x,q)&&(src==="all"||x.kind===src||(src==="site"&&x.site)));
-  document.querySelectorAll(".pillgroup button").forEach(b=>b.setAttribute("aria-selected",b.dataset.view===view));
+  const sel=parseHash();const q=$("#q").value.trim();
+  const base=ITEMS.filter(x=>match(x,q)&&(src==="all"||x.kind===src||(src==="site"&&x.site)));
   document.querySelectorAll(".seg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.src===src));
-  $("#result-n").textContent=items.length+"개";
-  const groups=view==="topic"
-    ?TOPICS.map(t=>({id:t.id,label:t.name,desc:t.desc,dot:`var(--b-${t.id})`,list:items.filter(x=>x.t===t.id),role:null}))
-    :ROLES.map(r=>({id:r.id,label:r.name,desc:r.desc,dot:null,list:items.filter(x=>x.r[r.id]),role:r.id}));
-  $("#cats").innerHTML=groups.map(g=>`<a class="cattab" href="#g-${g.id}" data-jump="g-${g.id}">${g.dot?`<span class="dot" style="--c:${g.dot}"></span>`:""}${g.label}<span class="n">${g.list.length}</span></a>`).join("");
-  $("#groups").innerHTML=groups.filter(g=>g.list.length).map(g=>`<section class="group" id="g-${g.id}">
-    <div class="ghead"><h2>${g.dot?`<span class="dot" style="--c:${g.dot}"></span>`:""}${g.label}</h2><p>${g.desc}</p></div>
-    <div class="grid">${g.list.map(x=>card(x,g.role)).join("")}</div></section>`).join("")
-    ||`<p class="empty">“${esc(q)}”에 맞는 항목이 없습니다. 다른 낱말로 찾아 보세요.</p>`;
-  spy();
+  const cur=(t,id)=>sel?(sel.type===t&&sel.id===id):(t==="all");
+  $("#nav-topic").innerHTML=`<li><a href="#all" aria-current="${cur("all")}"><span class="dot" style="--c:var(--ink)"></span>전체<span class="n">${base.length}</span></a></li>`+
+    TOPICS.map(t=>`<li><a href="#topic-${t.id}" aria-current="${cur("topic",t.id)}"><span class="dot" style="--c:var(--b-${t.id})"></span>${t.name}<span class="n">${base.filter(x=>x.t===t.id).length}</span></a></li>`).join("");
+  $("#nav-role").innerHTML=ROLES.map(r=>`<li><a href="#role-${r.id}" aria-current="${cur("role",r.id)}"><span class="av">${r.name[0]}</span>${r.name}<span class="n">${base.filter(x=>x.r[r.id]).length}</span></a></li>`).join("");
+  let items=base,title="전체 글",lede="스타를 누른 GitHub 저장소와 자주 쓰는 웹 도구입니다. 주제나 직군을 골라 보세요.",crumb="스킬 아카이브",role=null;
+  if(sel&&sel.type==="topic"){const t=topicOf(sel.id);items=base.filter(x=>x.t===sel.id);title=t.name;lede=t.desc;crumb=`<span class="dot" style="--c:var(--b-${t.id})"></span>주제`}
+  if(sel&&sel.type==="role"){const r=ROLES.find(r=>r.id===sel.id);items=base.filter(x=>x.r[sel.id]);title=r.name+"를 위한 도구";lede=r.desc+"입니다. 항목마다 어떻게 쓰는지 적어 두었습니다.";crumb=`<span class="av">${r.name[0]}</span>직군`;role=sel.id}
+  if(q)lede=`“${esc(q)}” 검색 결과 ${items.length}개`;
+  $("#crumb").innerHTML=crumb;$("#title").textContent=title;$("#lede").innerHTML=lede;
+  $("#feed").innerHTML=items.map(x=>post(x,role)).join("")||`<p class="empty">맞는 항목이 없습니다. 다른 낱말로 찾거나 「전체」를 눌러 보세요.</p>`;
 }
-function spy(){const secs=[...document.querySelectorAll("section.group")];let cur=null;
-  for(const s of secs){if(s.getBoundingClientRect().top<160)cur=s.id}
-  document.querySelectorAll(".cattab").forEach(a=>a.classList.toggle("on",a.dataset.jump===cur));}
-addEventListener("scroll",spy,{passive:true});
-function setView(v){view=v;history.replaceState(null,"","#"+v);render()}
-document.querySelectorAll(".pillgroup button").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.view)));
-document.querySelectorAll("[data-set]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();setView(a.dataset.set);scrollTo({top:0,behavior:reduce?"auto":"smooth"})}));
+addEventListener("hashchange",()=>{render();scrollTo({top:0,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})});
 document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>{src=b.dataset.src;render()}));
-document.querySelectorAll(".quick button").forEach(b=>b.addEventListener("click",()=>{$("#q").value=b.dataset.q;render();$("#list").scrollIntoView({behavior:reduce?"auto":"smooth"})}));
-$("#cats").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();
-  document.getElementById(a.dataset.jump)?.scrollIntoView({behavior:reduce?"auto":"smooth"})});
 $("#q").addEventListener("input",render);
 render();
 </script>
