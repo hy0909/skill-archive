@@ -3,7 +3,8 @@ const TOPICS=[
   {id:"ds",code:"DS",name:"디자인 시스템·규격",desc:"디자인 규칙을 사람과 에이전트가 같이 읽게 정리한 시스템과 문서 형식"},
   {id:"ft",code:"FT",name:"폰트",desc:"한글 본문용 고딕 서체. 프리텐다드와 그걸 손본 파생 서체"},
   {id:"gr",code:"GR",name:"그래픽·편집 도구",desc:"화면 효과와 이미지 편집에 쓰는 도구"},
-  {id:"gd",code:"GD",name:"그라데이션 생성기",desc:"배경용 메시·셰이더 그라데이션을 화면에서 바로 만들고 이미지·영상·코드로 내보내는 웹 도구"}
+  {id:"gd",code:"GD",name:"그라데이션 생성기",desc:"배경용 메시·셰이더 그라데이션을 화면에서 바로 만들고 이미지·영상·코드로 내보내는 웹 도구"},
+  {id:"ui",code:"UI",name:"UI 부품·참고 자료",desc:"화면에 바로 가져다 쓰는 차트·3D 부품과 기기 화면 규격처럼 만들 때 옆에 펴 두는 자료"}
 ];
 const ROLES=[
   {id:"dev",name:"개발자",desc:"코드에 바로 붙이거나 설치해서 쓰는 것"},
@@ -24,7 +25,7 @@ const ITEMS=[
    d:"Claude Code 설정 묶음. CEO, 디자이너, 엔지니어링 매니저, 릴리스·문서·QA 담당 역할을 하는 도구 23개.",
    tags:["claude-code","workflow"],
    r:{dsn:"디자이너 역할 도구로 화면 리뷰를 맡긴다.",pm:"CEO·문서 담당 역할로 기획 검토와 문서 정리를 맡길 수 있다.",dev:"릴리스·QA 역할로 배포 전 점검을 맡긴다."}},
-  {n:"caru-ini/stack-diagram",t:"sk",s:2889,l:"TypeScript",
+  {n:"caru-ini/stack-diagram",t:"sk",s:2945,site:"https://stacks.caru.moe",l:"TypeScript",
    d:"쓰는 기술을 한 문장으로 적으면 공식 로고가 들어간 시스템 구조도를 그려 준다.",
    tags:["agent-skills","diagram","architecture"],
    r:{dsn:"발표 자료에 넣을 서비스 구조도를 깔끔하게 뽑는다.",dev:"시스템 구성도를 문서에 넣을 때 쓴다.",pm:"기획서에 서비스 구조를 한 장으로 보여 줄 때 쓴다."}},
@@ -92,7 +93,39 @@ const ITEMS=[
   {n:"Aurora Gradient Editor",kind:"site",site:"https://a-bashtannik.github.io/aurora-gradient-editor/",t:"gd",s:null,l:"웹",
    d:"색 덩어리를 겹쳐 오로라 느낌 배경을 만드는 편집기. 기준 색 하나만 바꾸면 나머지 색이 어울리게 따라 바뀌고, CSS와 SwiftUI 코드로 내보낸다.",
    tags:["aurora","css","swiftui","oklch"],
-   r:{dsn:"기준 색 하나로 어울리는 오로라 배경 팔레트를 만든다.",dev:"앱 배경을 CSS·SwiftUI 코드로 바로 가져간다.",mkt:"브랜드 색 하나로 어울리는 배경을 만든다."}}
+   r:{dsn:"기준 색 하나로 어울리는 오로라 배경 팔레트를 만든다.",dev:"앱 배경을 CSS·SwiftUI 코드로 바로 가져간다.",mkt:"브랜드 색 하나로 어울리는 배경을 만든다."}},
+  {n:"cathrynlavery/diagram-design",t:"sk",s:73640,l:"HTML",site:"https://diagramdesign.dev",
+   d:"말로 설명하면 구조도·흐름도 같은 다이어그램 52종을 HTML+SVG 파일 하나로 그려 주는 에이전트 스킬. 브랜드 색과 글꼴에 맞추고, draw.io·Mermaid 파일도 가져와 다시 그린다.",
+   tags:["agent-skills","diagram","svg","drawio"],
+   r:{dsn:"브랜드 톤에 맞춘 다이어그램을 시안 수준으로 뽑는다.",pm:"기획서에 넣을 흐름도·구조도를 말로 설명해서 만든다.",dev:"시스템 구조도를 문서에 넣을 때 쓴다.",mkt:"발표·콘텐츠용 도식을 깔끔하게 만든다."}},
+  {n:"dongdongdongdongding/product_design_dongh",t:"sk",s:25,l:"HTML",
+   d:"기획서나 아이디어 한 줄을 메뉴·기능·컴포넌트·동작으로 쪼갠 뒤, 시안 비교부터 화면설계서(SB)·플로우 맵·디자인 시스템·검수표까지 만드는 Claude Code 플러그인.",
+   tags:["claude-code","plugin","screen-spec","flow-map"],
+   r:{pm:"기능정의서·화면설계서·검수표를 한 원본에서 어긋나지 않게 뽑는다.",dsn:"시안 비교와 플로우 맵, 디자인 시스템 정리에 쓴다.",dev:"개발 문서와 화면 흐름을 한 번에 넘겨받는다."}},
+  {n:"pierridotite/mobile-agent-testers",t:"sk",s:2465,l:"Python",site:"https://pierridotite.github.io/mobile-agent-testers/",
+   d:"AI 테스터 20명이 서로 다른 휴대폰 20대(iOS 시뮬레이터·안드로이드 에뮬레이터)에서 앱을 동시에 써 보며 깨진 흐름, 번역, 레이아웃, 접근성 문제를 찾는다. 깃허브 무료 실행 환경에서 돈다.",
+   tags:["claude-code","mobile-testing","qa","accessibility"],
+   r:{dev:"출시 전 여러 기기에서 앱 흐름을 자동으로 점검한다.",pm:"기기별로 어디서 막히는지 검수 결과를 한 번에 받아 본다.",dsn:"기기마다 레이아웃이 깨지는 곳과 접근성 문제를 확인한다."}},
+  {n:"hypercodism/alpine-code",t:"sk",s:36,l:"TypeScript",
+   d:"코드를 몰라도 쓰기 쉬운 맥용 오픈소스 코딩 에이전트 앱. 폴더를 열고 말로 시키면 파일을 고치기 전에 먼저 묻고, 한 일을 다 보여 준다. 쓰는 AI 모델은 마음대로 고른다.",
+   tags:["desktop-app","coding-agent","no-code","macos"],
+   r:{pm:"코드를 몰라도 시안이나 페이지를 직접 고쳐 볼 때 쓴다.",dsn:"만든 화면을 말로 직접 손볼 때 쓴다.",dev:"모델과 도구를 직접 바꿔 끼우는 에이전트 앱으로 쓴다."}},
+  {n:"Giting",kind:"site",site:"https://giting.kr/skills/",t:"sk",s:null,l:"웹",
+   d:"Claude Code 스킬을 직접 검수해 통과한 것만 올리는 한국어 스킬 모음. 차트·플로우·디자인 브리프·문서 편집 스킬과 다른 사람 스킬 리뷰가 있고, 설치는 명령 한 줄이다.",
+   tags:["claude-code","skills","review","korean"],
+   r:{dsn:"디자인 브리프·UI 관련 스킬을 골라 설치한다.",pm:"검수를 거친 스킬만 골라 쓰고 싶을 때 먼저 본다.",dev:"플러그인 마켓으로 스킬을 한 줄로 설치한다."}},
+  {n:"Junhan2/ztd-charts",t:"ui",s:393,l:"TypeScript",site:"https://charts.ztd.app",
+   d:"의존 패키지 없이 순수 SVG로 그리는 움직이는 React 차트 47종. 차트마다 JSON 명세가 있어 AI 에이전트가 쓰고, PNG·SVG·HTML로 뽑을 수 있다. 한국어 지원.",
+   tags:["react","chart","svg","mcp"],
+   r:{dev:"대시보드 차트를 가볍게 붙인다.",dsn:"강조색 하나로 요점을 보여 주는 차트 표현을 참고한다.",pm:"보고서·대시보드 차트를 에이전트에게 맡겨 뽑는다.",mkt:"성과 지표 차트를 이미지로 뽑아 콘텐츠에 쓴다."}},
+  {n:"ThreeUI",kind:"site",site:"https://threeui.com/",t:"ui",s:null,l:"웹",
+   d:"Three.js·WebGL로 만든 히어로, 배경, 버튼, 가격표, 텍스트 애니메이션 같은 화면 부품과 랜딩 페이지 템플릿 모음. 항목마다 소스와 미리보기가 있다.",
+   tags:["threejs","webgl","components","landing-page"],
+   r:{dsn:"3D·WebGL 효과가 들어간 화면 부품을 참고한다.",dev:"소스를 가져와 3D 섹션을 바로 붙인다.",mkt:"눈에 띄는 랜딩 페이지 히어로 시안을 찾는다."}},
+  {n:"Safe Area",kind:"site",site:"https://safearea.info",t:"ui",s:null,l:"웹",
+   d:"아이폰·아이패드·애플워치 기종별 화면 크기, 해상도, 모서리 둥글기, 안전 영역 여백을 보여 주는 참고 사이트. 기기를 돌리거나 접어 보며 확인하고 값을 바로 복사한다.",
+   tags:["ios","safe-area","device-specs"],
+   r:{dsn:"기종별 안전 영역과 화면 크기를 확인하고 시안 프레임을 잡는다.",dev:"노치·홈 표시줄 여백 값을 바로 복사해 쓴다.",pm:"지원 기기별 화면 규격을 확인한다."}}
 ];
 ITEMS.forEach(x=>{x.kind=x.kind||"repo"});
 ITEMS.sort((a,b)=>(b.s??-1)-(a.s??-1));
